@@ -14,3 +14,16 @@ The exact presentation will depend on the event: a vote, a tournament, an electi
 ### Other Stuff
 
 * Use Trello for development board
+
+
+### Conf file
+
+Create a config file called _config.conf_.
+
+Into it, for now put:
+
+<div>
+[twitter]
+username = username
+password = password
+</div>
