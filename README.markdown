@@ -22,8 +22,6 @@ Create a config file called _config.conf_.
 
 Into it, for now put:
 
-<div>
-[twitter]
-username = username
-password = password
-</div>
+    [twitter]
+    username = username
+    password = password
