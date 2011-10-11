@@ -35,10 +35,13 @@ class TwitterStuff:
     print json.loads(data)
 
   def receive_and_write_to_Mongo(self, data):
-    data = json.loads(data)
-    print data
-    collection = self.db["tweets"]
-    collection.insert(data)
+    try:
+      data = json.loads(data)
+      print data
+      collection = self.db["tweets"]
+      collection.insert(data)
+    except ValueError:
+      print "Error in tweet."
 
 def main():
   t = TwitterStuff()
