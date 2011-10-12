@@ -1,0 +1,32 @@
+var json = [ { "adjacencies": [
+    {
+        "nodeTo": "2", 
+        "nodeFrom": "1", 
+        "data": {}
+    }, 
+    {
+        "nodeTo": "3", 
+        "nodeFrom": "2", 
+        "data": {}
+    }, 
+    {
+        "nodeTo": "4", 
+        "nodeFrom": "3", 
+        "data": {}
+    }, 
+    {
+        "nodeTo": "1", 
+        "nodeFrom": "4", 
+        "data": {}
+    }, 
+    {
+        "nodeTo": "2", 
+        "nodeFrom": "4", 
+        "data": {}
+    }, 
+    {
+        "nodeTo": "3", 
+        "nodeFrom": "4", 
+        "data": {}
+    }
+]} ]
