@@ -3,14 +3,14 @@
 
 import networkx as nx
 import json
-from pymongo import Connection
+#from pymongo import Connection
 
 from twitter_login import login
 
 
-connection = Connection()
-db = connection['twitter-news']
-users_ = db['users']
+#connection = Connection()
+#db = connection['twitter-news']
+#users_ = db['users']
 
 
 
@@ -24,8 +24,18 @@ class Network:
     except:
       self.makeNetwork(base_users)
 
-    print self.network.nodes()
-    print self.network.edges()   
+    s = '{"nodes":['
+    for n in self.network.nodes():
+      s += '{"name":"' + n + '"},'
+    s = s.rpartition(',')[0]
+    s += '],"links":['
+    for n in self.network.edges():
+      s += '{"source":"' + n[0] + '","target":"' + n[1] + '"},'
+    s = s.rpartition(',')[0]
+    s += ']}'
+    f = open('graph.json','w+')
+    f.write(s)
+    print s
 
   def makeNetwork(self,base_users):
     current_lvl = set([])
@@ -56,7 +66,7 @@ class Network:
       for u in users:
         mapping[u["id"]] = u["screen_name"]
         u["_id"] = u["id"]
-        users_.insert(u)
+        #users_.insert(u)
 
     nx.relabel_nodes(self.network,mapping,copy=False)
     nx.write_gpickle(self.network,"graph.pickle")
@@ -64,5 +74,5 @@ class Network:
   def loadFromFile(self):
     self.network = nx.read_gpickle("graph.pickle")
 
-t = Network(["but_is_it_art","jamalzkhan"])
+t = Network(["but_is_it_art","jamalzkhan","rafalszymanski","wmhv2","ihnatko","gruber","siracusa"])
 
