@@ -2,4 +2,9 @@ config.conf
 *.pyc
 out/
 *.pickle
-
+*.aux
+*.log
+*.pdf
+*.toc
+*.gz
+*.out
