@@ -48,6 +48,7 @@ class RssFetcher:
       shared.keyword_list += terms
 
       self.news.insert(news_story)
+      
 
 if __name__ == "__main__":
   r = RssFetcher()
