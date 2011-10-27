@@ -28,7 +28,7 @@
 		\and
 		\small{\{rs2909, mja108, sw2309, sss308, jzk09\}@doc.ic.ac.uk}
 		\and
-		\small{Department of Computing - Imperial College London}
+		Department of Computing - Imperial College London
 }
 
 
@@ -72,9 +72,9 @@
 			\includegraphics[scale=0.4]{trello.png}
 		  \end{center}
 	
-			The \emph{product backlog} has all the features that we would like to implement. This list will will have items added to it as the project progresses. At the beginning of each week, we shall have a scrum meeting where we pull some required features from the \emph{product backlog} into an \emph{iteration list} that will keep track of what is to be done each week. The Trello software allows us to assign developers to particular tasks, and this feature will be used.
+			The \emph{product backlog} has all the features that we would like to implement. This list will have items added to it as the project progresses. At the beginning of each week, we shall have a scrum meeting where we pull some required features from the \emph{product backlog} into an \emph{iteration list} that will keep track of what is to be done each week. The Trello software allows us to assign developers to particular tasks, and this feature will be used.
 			
-			We shall have scrum meetings either daily, or every two days, where we will discuss the progress of the task everyone has been assigned to for that week. We aim to successfully complete the required tasks at the end of each iteration period.
+			We shall have scrum meetings either daily, or every two days, where we will discuss the progress of the task everyone has been assigned to for that week. We aim to successfully complete the required tasks at the end of each iteration period. This is how we will measure our velocity. If we are not getting everything done from the current period, it means we have not achieved proper velocity.
 			
 			For development itself we will try to utilise \emph{paired programming} as much as possible. We believe this will allow all members of the team to understand major parts of the application in detail and help to even out different levels of expertise between team members. We also believe it will boost the team's productivity.
 	
@@ -107,8 +107,7 @@
 	
 	\section{Outline of different iterations}
 	\begin{description}
-	  \item[First Iteration] 
-	  MVP, basic news augmenting functionality and live updates.
+	  \item[First Iteration] MVP - basic news augmenting functionality and live updates.
 	    \begin{itemize}
 	      
 	      \item Setup DB and server to receive Tweets and RSS
@@ -119,7 +118,7 @@
 	        \item digging into twitter API \& RSS
 	      \end{itemize}
 	      
-	      \item Design algorithms to generate keywords
+	      \item Design algorithms to generate keywords (Look into using natural language processing libraries, there are a lot available for Python)
 	      \item UI Mockups and UX Research
 	      \item UI Implementation: Framework and plugins to use (eg jQuery, jQuery plugins, Twitter Bootstrap, etc)
 	      \item Getting the web app hosted
@@ -151,6 +150,46 @@
 	  \end{itemize}
 	  \item Setup continuos integration
 	\end{itemize}
+	
+	We have 3 weeks = 15 working days for 5 day workweek. Our first iteration plan is:
+	
+	\begin{itemize}
+		\item Design system architecture (day 1-3)
+		\item Setup continuous integreation, version control, testing suites (day 1-3)
+		\item Create a dummy API server for the UI to connect to (day 4)
+		\item Tweet fetching thread (day 5-10)
+		\item Create a keyword extractor from google news rss thread (day 5-10)
+		\item Analysis thread that scans current news list and creates the initial news stories in DB (day 11-13)
+		\item Matching Tweets to News (day 11-13)
+		\item UI Mockups (day 4-6)
+		\item UI debates (day 7)
+		\item UI refinements (day 8)
+		\item UI Implementation (day 9-13)
+		\item Integrate UI with system (day 9-13)
+		\item Finalise \& polish first iteration (day 14-15)
+	\end{itemize}
+	
+	Progress Measure:
+	
+	\begin{itemize}
+		\item Day 3: Architecture \& Design Finalised
+		\item Day 5: Dummy API exists so UI \& backend can be developed concurrently
+		\item Day 10: Datagathering systems all in place
+		\item Day 13: UI functional, News-Tweets Paired
+		\item Day 15: MVP done
+	\end{itemize}
+	
+	Potential Risks:
+	
+	\begin{itemize}
+		\item Failure to develop keyword algorithm in time
+		\item Small amount of tweets for a news story
+		\item DB grows too quickly / run out of space / efficiency problems.
+	\end{itemize}
+
+
+	
+	
 		
 
 \end{document}
