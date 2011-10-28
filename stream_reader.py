@@ -17,6 +17,7 @@ class StreamReader:
 
   def getTweetsBySubject(self, subjects, onwrite):
     stream_url  = "https://stream.twitter.com/1/statuses/filter.json"
+    print subjects
     post_data = "track=" + ",".join(subjects)
 
     print "post_data = " + post_data
