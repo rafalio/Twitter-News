@@ -1,1 +1,1 @@
-keyword_list = []
+stories = []

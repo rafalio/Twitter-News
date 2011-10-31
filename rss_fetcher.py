@@ -13,7 +13,6 @@ class RssFetcher:
   RSS_LINK = "http://news.google.com/?output=rss"
 
   def __init__(self):
-    self.news = mongo_connector.MongoConnector().getCol("news")
     self.extractor = extract.TermExtractor()
 
 
@@ -33,23 +32,19 @@ class RssFetcher:
 
   def getNews(self):
     feed = feedparser.parse(self.RSS_LINK)
-
+    news_stories = []
+    
     for entry in feed["items"]:
       news_story = {}
       news_story["title"] = RssFetcher.gNews_title_fix(entry["title"])
       news_story["link"] = RssFetcher.gNews_get_link(entry["link"])
       news_story["date"] = parser.parse(entry["updated"])
-      
-      # Use the md5 of 'title' and 'link' to prevent duplicate entries
-      digest = hashlib.md5(news_story["title"] + news_story["link"]).hexdigest()[:24]
-      news_story["_id"] = bson.objectid.ObjectId(digest)
-      
-      terms = map(lambda a : a[0].encode('ascii','ignore'), self.extractor(news_story["title"]))
-      shared.keyword_list += terms
-
-      self.news.insert(news_story)
-      
-
+            
+      news_story["keywords"] = map(lambda a : a[0].encode('ascii','ignore'), self.extractor(news_story["title"]))
+      news_stories.append(news_story)
+    
+    shared.stories = news_stories
+    
 if __name__ == "__main__":
   r = RssFetcher()
   r.getNews()

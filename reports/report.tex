@@ -3,6 +3,8 @@
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
 
 \setlength{\parindent}{0pt}
 \addtolength{\parskip}{\baselineskip}
@@ -11,10 +13,10 @@
 % \author{Maciej Albin, Rafal Szymanski, Sam Wong, Suhaib Sarmad, Jamal Khan, Suhaib Sarmad}
 
 \author{
-    \small{Rafal Szymanski}\\
+    \small{Rafał Szymański}\\
 %		\small{\emph{rs2909}}
   	\and
-    \small{Maciej Albin}\\
+    \small{Maciek Albin}\\
 %		\small{\emph{mja108}}
     \and
     \small{Sam Wong}\\
@@ -28,8 +30,10 @@
 		\and
 		\small{\{rs2909, mja108, sw2309, sss308, jzk09\}@doc.ic.ac.uk}
 		\and
-		Department of Computing - Imperial College London
+		\\Department of Computing - Imperial College London
 }
+
+\date{}
 
 
 \begin{document} 
@@ -77,7 +81,22 @@
 			We shall have scrum meetings either daily, or every two days, where we will discuss the progress of the task everyone has been assigned to for that week. We aim to successfully complete the required tasks at the end of each iteration period. This is how we will measure our velocity. If we are not getting everything done from the current period, it means we have not achieved proper velocity.
 			
 			For development itself we will try to utilise \emph{paired programming} as much as possible. We believe this will allow all members of the team to understand major parts of the application in detail and help to even out different levels of expertise between team members. We also believe it will boost the team's productivity.
-	
+		
+		\subsection{Team Roles}
+		  \subsubsection{Scrum}
+		    Scrum framework contains 3 main roles:
+		    \begin{description}
+		      \item[Scrum Master] is responsible for maintaining the process. This role is held by \emph{Rafał Szymański}.
+		      \item[Product Owner] is responsible for the feature list. This role is held by \emph{Maciek Albin}.
+		      \item[The Team] is responsible for developing the software. We are all members of the team.
+		    \end{description} 
+		    
+		  \subsubsection{Development}
+		    We have to key areas we've divided the team into, but there will definitely be some migrations between them later in the project:
+		    \begin{description}
+		      \item[Frontend design group] is responsible for creating a fast, fluid and graphically stimulating UI for the website that will communicate with the backend systems. \emph{Sam Wong} and \emph{Suhaib Sarmad} are responsible for this.
+		      \item[Backend design group] is responsible for developing a fast backend system that will periodically analyse news stories and provide an API for the javascript frontend. \emph{Jamal Khan}, \emph{Rafał Szymański} and \emph{Maciek Albin} are members of this group.
+		    \end{description}
 	
 		\subsection{Version Control and Code Testing}
 		
