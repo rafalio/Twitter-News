@@ -14,6 +14,7 @@ The exact presentation will depend on the event: a vote, a tournament, an electi
 ### Other Stuff
 
 * Use Trello for development board
+* Used AlchemyAPI for keyword extraction
 
 
 ### Conf file
@@ -25,3 +26,6 @@ Into it, for now put:
     [twitter]
     username = username
     password = password
+    
+    [alchemyapi]
+    key = 3526e3190e16ae61c09c20bd3593c5d31eaeb84f

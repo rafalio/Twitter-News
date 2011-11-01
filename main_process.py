@@ -3,14 +3,19 @@ import threading, time
 import rss_fetcher
 import stream_reader
 import shared
+import keyword_extractor
 
 class NewsFetchThread(threading.Thread):
   def run(self):
     r = rss_fetcher.RssFetcher()
+    k = keyword_extractor.KeywordExtractor()
     
     while 1:
       print "Getting news...."
       r.getNews()
+      
+      print "Getting keywords..."
+      k.getKeywords()
       
       print "Starting fetching thread..."
       s = StreamFetchThread() 

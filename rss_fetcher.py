@@ -14,6 +14,7 @@ class RssFetcher:
 
   def __init__(self):
     self.extractor = extract.TermExtractor()
+  
 
 
   @staticmethod
@@ -39,11 +40,11 @@ class RssFetcher:
       news_story["title"] = RssFetcher.gNews_title_fix(entry["title"])
       news_story["link"] = RssFetcher.gNews_get_link(entry["link"])
       news_story["date"] = parser.parse(entry["updated"])
-            
       news_story["keywords"] = map(lambda a : a[0].encode('ascii','ignore'), self.extractor(news_story["title"]))
       news_stories.append(news_story)
-    
+      
     shared.stories = news_stories
+
     
 if __name__ == "__main__":
   r = RssFetcher()
