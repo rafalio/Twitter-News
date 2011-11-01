@@ -1,10 +1,12 @@
-import pycurl, json, pymongo, ConfigParser, bson, hashlib
+import pycurl, json, pymongo, ConfigParser, bson, hashlib, threading
 
 import mongo_connector
+import shared
 
-class StreamReader:
+class StreamReader(threading.Thread):
 
   def __init__(self):
+    threading.Thread.__init__(self)
     self.tweet_collection = mongo_connector.MongoConnector().getCol("tweets")
 
     config = ConfigParser.RawConfigParser()
@@ -15,18 +17,35 @@ class StreamReader:
 
     print "making new stream reader"
 
+
+  def run(self):
+
+    while 1:
+      print "Waiting for RSS to get news"
+      shared.event.wait()
+      print "Got news..."
+      self.getTweetsBySubject(shared.keywords, self.receive_and_write_to_Mongo)
+      shared.flag = False;
+
   def getTweetsBySubject(self, subjects, onwrite):
+
+    print "Starting the stream getting...."
+
     stream_url  = "https://stream.twitter.com/1/statuses/filter.json"
     print subjects
     post_data = "track=" + ",".join(subjects)
-
     print "post_data = " + post_data
 
     conn = self.openStream(stream_url, onwrite)
     conn.setopt(pycurl.POST, 1)
     conn.setopt(pycurl.POSTFIELDS, post_data)
-    conn.perform()
-    conn.close()
+
+    # Stream until I need to change the keyword list
+    try:
+      conn.perform()
+    except Exception:
+      print "Done..."
+      conn.close()
 
   def openStream(self, stream, write_function):
     conn = pycurl.Curl()
@@ -40,8 +59,15 @@ class StreamReader:
 
   def receive_and_write_to_Mongo(self, data):
     try:
+
+      # Means we need to restart with new set of keywords
+      if shared.flag:
+        print "return -1 ASDFASDFASDFASDF"
+        # This will get out of the pycurl thread, it will cause
+        # an exception
+        return -1
+
       data = json.loads(data)
-      #data["_id"] = data["id"]
       data["_id"] = bson.objectid.ObjectId(hashlib.md5(str(data["id"])).hexdigest()[:24])
       print data["text"]
       self.tweet_collection.insert(data)
