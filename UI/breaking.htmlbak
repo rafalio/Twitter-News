@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+	<title>Breaking News!!</title>
+	<link rel="stylesheet" type="text/css" href="css/breaking.css" />
+	<link rel="stylesheet" type="text/css" href="css/smoothDivScroll.css" />
+
+	<script src="js/jquery-1.6.4.min.js" type="text/javascript"></script>
+	<script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+	<script src="js/jquery.mousewheel.min.js" type="text/javascript"></script>
+	<script src="js/jquery.smoothDivScroll-1.1-min.js" type="text/javascript"></script>	
+	<script src="js/breaking.js" type="text/javascript"></script>	
+	
+</head>
+
+
+<body>
+	<div id="makeMeScrollable">
+		<div class="scrollingHotSpotLeft arrows"></div>
+		<div class="scrollingHotSpotRight arrows"></div>
+		<div class="scrollWrapper">
+			<div id="breakingNews" class="scrollableArea">
+				<div style="width:0px; border:0px;"></div> <!-- Can't be empty, so add a dummy in -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>

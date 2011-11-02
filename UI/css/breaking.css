@@ -1,0 +1,42 @@
+#makeMeScrollable
+{
+	position: relative;
+}
+
+#makeMeScrollable .arrows
+{
+	height: 100px;
+	width: 75px;
+}
+
+.scrollableArea div
+{
+	height: 100px;
+	width: 300px;
+/*	border-color: black;
+	border: 2px;
+	border-style: solid;
+*/}
+
+#makeMeScrollable div.scrollableArea *
+{
+	position: relative;
+	display: block;
+	float: left;
+	padding: 0;
+	margin: 0;
+	font-size: 1.3em;
+	color: white;
+}
+
+#makeMeScrollable .scrollableArea p
+{
+	font-size:1em;
+}
+
+#BreakingTitle
+{
+	font-size: 3em;
+	color: red;
+	padding-bottom: 0.5em;
+}
