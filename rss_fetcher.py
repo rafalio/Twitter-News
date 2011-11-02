@@ -1,4 +1,4 @@
-import feedparser, pymongo, json, hashlib, bson, threading, time, itertools
+import feedparser, pymongo, json, hashlib, bson, threading, time
 
 from topia.termextract import extract, tag
 from dateutil import parser    # For easily parsing strings to Date
@@ -32,8 +32,6 @@ class RssFetcher(threading.Thread):
       shared.flag = True
 
       print "Finished sleeping, back to beginning of loop"
-
-
   
 
 
@@ -64,9 +62,6 @@ class RssFetcher(threading.Thread):
       news_stories.append(news_story)
       
     shared.stories = news_stories
-    shared.keywords = list(itertools.chain.from_iterable(map(lambda a : a["keywords"], news_stories)))
-    print "keywords: "
-    print shared.keywords
 
     
 if __name__ == "__main__":

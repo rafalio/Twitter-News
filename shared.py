@@ -4,5 +4,3 @@ import threading
 stories = []
 flag = False
 event = threading.Event()
-
-keywords = []

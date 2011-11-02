@@ -1,4 +1,4 @@
-import pycurl, json, pymongo, ConfigParser, bson, hashlib, threading
+import pycurl, json, pymongo, ConfigParser, bson, hashlib, threading, itertools
 
 import mongo_connector
 import shared
@@ -24,7 +24,8 @@ class StreamReader(threading.Thread):
       print "Waiting for RSS to get news"
       shared.event.wait()
       print "Got news..."
-      self.getTweetsBySubject(shared.keywords, self.receive_and_write_to_Mongo)
+      self.getTweetsBySubject(list(itertools.chain.from_iterable(map(lambda a : a["keywords"], shared.stories))),
+                              self.receive_and_write_to_Mongo)
       shared.flag = False;
 
   def getTweetsBySubject(self, subjects, onwrite):
