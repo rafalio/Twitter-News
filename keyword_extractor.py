@@ -1,5 +1,4 @@
-import ConfigParser, pycurl, bson, json
-import shared
+import ConfigParser, json, urllib
 
 class KeywordExtractor:
   
@@ -7,52 +6,27 @@ class KeywordExtractor:
     config = ConfigParser.RawConfigParser()
     config.read('config.conf')
     self.key = config.get('alchemyapi','key')
+    self.stream = "http://access.alchemyapi.com/calls/url/URLGetRankedKeywords"
+    self.apikey_option = 'apikey=' + self.key
+    self.output_option = 'outputMode=' + 'json'
+    self.keyword_limit_option = 'maxRetrieve=' + '5'
 
-  def getKeywordsByURL(self, url, story):
-    url = str(url)
-    # Alchemy API settings
-    stream = "http://access.alchemyapi.com/calls/url/URLGetRankedKeywords"
-    apikey_option = 'apikey=' + self.key
-    url_option = 'url=' + url
-    output_option = 'outputMode=' + 'json'
-    keyword_limit_option = 'maxRetrieve=' + '5'
-    stream += '?' + apikey_option + "&" + url_option + "&" + output_option + '&' + keyword_limit_option
-    
-    
-    write_function = lambda data, story=story: self.recieve_and_save(data, story)
-    #self.recieve_and_save
-    
-    conn = self.openStream(stream, write_function)
-    conn.perform()
-    conn.close()
-    
-  def openStream(self, stream, write_function):
-    conn = pycurl.Curl()
-    conn.setopt(pycurl.URL, stream)
-    conn.setopt(pycurl.WRITEFUNCTION, write_function)
-    return conn
-    
-  def getKeywords(self):
-    for story in shared.stories:
-      self.getKeywordsByURL(story["link"], story)
-      
-        
-  def recieve_and_save(self, data, story):
+  def getKeywordsByURL(self, url):
+    # Building Alchemy API call
+    call = self.stream +  '?' + self.apikey_option + "&" + 'url=' + url + "&" + self.output_option + '&' + self.keyword_limit_option
+    data = urllib.urlopen(call)
     keywords = []
     try:
-      data = json.loads(data)
+      data = json.loads(data.read())
       keyword_data =  data['keywords']
       for keyword_entry in keyword_data:
-        keywords.append(keyword_entry['text'])
-      story['alchemykeywords'] = keywords
-      
+        keywords.append(str(keyword_entry['text']))
     except ValueError:
-      print "Error in data"
+      print "Error in data from the keyword extractor"
       print data
-
+    return keywords
 
 if __name__ == "__main__":
   k = KeywordExtractor()
-  k.getKeywords()
-  #k.getKeywordsByURL("http://bit.ly/oTPnyE")
-  #k.getKeywordsByURL("http://techcrunch.com/2011/10/19/dropbox-minimal-viable-product/")
+  print k.getKeywordsByURL("http://bit.ly/oTPnyE")
+  print k.getKeywordsByURL("http://techcrunch.com/2011/10/19/dropbox-minimal-viable-product/")

@@ -28,4 +28,4 @@ Into it, for now put:
     password = password
     
     [alchemyapi]
-    key = 3526e3190e16ae61c09c20bd3593c5d31eaeb84f
+    key = apithing
