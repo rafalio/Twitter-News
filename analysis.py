@@ -71,7 +71,7 @@ class Analysis(threading.Thread):
           for keyword_word in keyword_words:
             exists = exists and (tweet["text"].find(keyword_word) != -1)
           if exists:
-            story["curr_period"]["tweets"].append(tweet)
+            story["curr_period"]["tweets"].append(tweet["_id"])
             break;
     
     if self.verbose:
