@@ -2,6 +2,8 @@ import feedparser, pymongo, json, hashlib, bson, threading, time
 
 from dateutil import parser    # For easily parsing strings to Date
 
+from BeautifulSoup import BeautifulSoup # For Parsing descriptions
+
 import keyword_extractor
 
 import shared
@@ -39,9 +41,17 @@ class RssFetcher(threading.Thread):
     return title[0:dashOccurence]
   
   @staticmethod
-  def gNews_get_link(link):
+  def gNews_get_link_main_story(link):
     """Get the news URL from a weirdly crafted google news url"""
     return link[link.find("&url=")+len("&url="):]
+  
+  @staticmethod
+  def gNews_get_summary(description):
+    return BeautifulSoup(description).findAll('div',{'class':'lh'})[0].findAll('font',{'size':'-1'})[1].contents[0]
+  
+  @staticmethod
+  def gNews_get_link(description):
+    return BeautifulSoup(description).findAll('div',{'class':'lh'})[0].findAll('font',{'size':'-1'})[-1].a['href']
   
   def getNews(self):
     """Download news stories and put them in the shared list"""
@@ -55,11 +65,11 @@ class RssFetcher(threading.Thread):
         print "[INFO] RSS Thread: Parsing story {0}.".format(entry["title"])
       news_story = {}
       news_story["title"] = RssFetcher.gNews_title_fix(entry["title"])
-      news_story["link"] = RssFetcher.gNews_get_link(entry["link"])
+      news_story["link_main_story"] = RssFetcher.gNews_get_link_main_story(entry["link"])
+      news_story["link"] = RssFetcher.gNews_get_link(entry["description"])
+      news_story["summary"] = RssFetcher.gNews_get_summary(entry["description"])
       news_story["date"] = parser.parse(entry["updated"])
       news_story["keywords"] = self.extractor.getKeywordsByURL(news_story["link"])
-      if self.verbose:
-        print "  Adding keywords: {0}.".format(news_story["keywords"])
       news_stories.append(news_story)
     
     if self.verbose:

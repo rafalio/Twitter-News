@@ -43,6 +43,15 @@ class Analysis(threading.Thread):
         if self.verbose:
           print "[INFO] Analysis Thread: Story {0} is in db. Updating date.".format(story["title"])
         in_db.update({"$set": {"date": story["date"]}})
+        if self.verbose:
+          print "[INFO] Analysis Thread: Story {0} is in db. Updating keywords.".format(story["title"])
+        in_db.update({"$set": {"keywords": story["keywords"]}})
+        if self.verbose:
+          print "[INFO] Analysis Thread: Story {0} is in db. Updating link.".format(story["title"])
+        in_db.update({"$set": {"link": story["link"]}})
+        if self.verbose:
+          print "[INFO] Analysis Thread: Story {0} is in db. Updating main story link.".format(story["title"])
+        in_db.update({"$set": {"link_main_story": story["link_main_story"]}})
   
   def add_new_time_period_to_stories(self, stories, start, end):
     """Goes through tweets posted between start and end and assigns them to appropriate stories"""
@@ -60,8 +69,6 @@ class Analysis(threading.Thread):
       print "[INFO] Analysis Thread: Loading tweets from {0} to {1}.".format(start,end)
     tweets_in_time_period = self.tweet_collection.find({"created_at": {"$gte": start, "$lt": end}})
     for tweet in tweets_in_time_period:
-      if self.verbose:
-        print "  " + tweet["text"]
       for story in stories:
         for keyword in story["keywords"]:
           keyword_words = keyword.split()
